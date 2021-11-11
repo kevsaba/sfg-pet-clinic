@@ -50,7 +50,7 @@
     </build>
 
     <scm>
-        <developerConnection>scm:git:kevsaba@github.com/kevsaba/sfg-pet-clinic.git</developerConnection>
+        <developerConnection>scm:git:git@github.com:kevsaba/sfg-pet-clinic.git</developerConnection>
       <tag>sfg-pet-clinic-0.0.2</tag>
   </scm>
 
