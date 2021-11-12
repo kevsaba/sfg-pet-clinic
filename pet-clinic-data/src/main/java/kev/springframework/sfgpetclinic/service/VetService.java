@@ -1,14 +1,7 @@
 package kev.springframework.sfgpetclinic.service;
 
-import kev.springframework.sfgpetclinic.model.Vet;
+import kev.springframework.sfgpetclinic.model.Pet;
 
-import java.util.Set;
+public interface VetService extends CrudService<Pet, Long> {
 
-public interface VetService {
-
-    Vet findById(Long id);
-
-    Vet save(Vet owner);
-
-    Set<Vet> findAll();
 }
