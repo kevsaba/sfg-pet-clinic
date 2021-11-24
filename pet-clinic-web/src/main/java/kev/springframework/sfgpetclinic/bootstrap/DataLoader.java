@@ -1,8 +1,11 @@
 package kev.springframework.sfgpetclinic.bootstrap;
 
 import kev.springframework.sfgpetclinic.model.Owner;
+import kev.springframework.sfgpetclinic.model.PetType;
 import kev.springframework.sfgpetclinic.model.Vet;
 import kev.springframework.sfgpetclinic.service.OwnerService;
+import kev.springframework.sfgpetclinic.service.PetService;
+import kev.springframework.sfgpetclinic.service.PetTypeService;
 import kev.springframework.sfgpetclinic.service.VetService;
 import kev.springframework.sfgpetclinic.service.map.OwnerServiceMap;
 import kev.springframework.sfgpetclinic.service.map.VetServiceMap;
@@ -15,14 +18,24 @@ public class DataLoader implements CommandLineRunner {
 
     private final OwnerService ownerService;
     private final VetService vetService;
+    private final PetTypeService petService;
 
-    public DataLoader(OwnerServiceMap ownerService, VetServiceMap vetService) {
+    public DataLoader(OwnerServiceMap ownerService, VetServiceMap vetService, PetTypeService petService) {
         this.ownerService = ownerService;
         this.vetService = vetService;
+        this.petService = petService;
     }
 
     @Override
     public void run(String... args) throws Exception {
+        var dog = new PetType();
+        dog.setName("Dog");
+        var dogPetType = petService.save(dog);
+
+        var cat = new PetType();
+        dog.setName("Cat");
+        var catPetType = petService.save(cat);
+
         Owner owner1 = new Owner();
         owner1.setFirstName("kev");
         owner1.setLastName("saba");
