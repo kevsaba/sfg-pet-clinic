@@ -1,4 +1,4 @@
-package kev.springframework.sfgpetclinic.service;
+package kev.springframework.sfgpetclinic.services;
 
 import java.util.Set;
 

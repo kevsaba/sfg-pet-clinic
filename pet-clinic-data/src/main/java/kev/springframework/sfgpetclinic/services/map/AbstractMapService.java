@@ -1,4 +1,4 @@
-package kev.springframework.sfgpetclinic.service.map;
+package kev.springframework.sfgpetclinic.services.map;
 
 import kev.springframework.sfgpetclinic.model.BaseEntity;
 

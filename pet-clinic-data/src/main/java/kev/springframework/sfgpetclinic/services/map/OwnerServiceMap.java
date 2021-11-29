@@ -1,9 +1,9 @@
-package kev.springframework.sfgpetclinic.service.map;
+package kev.springframework.sfgpetclinic.services.map;
 
 import kev.springframework.sfgpetclinic.model.Owner;
-import kev.springframework.sfgpetclinic.service.OwnerService;
-import kev.springframework.sfgpetclinic.service.PetService;
-import kev.springframework.sfgpetclinic.service.PetTypeService;
+import kev.springframework.sfgpetclinic.services.OwnerService;
+import kev.springframework.sfgpetclinic.services.PetService;
+import kev.springframework.sfgpetclinic.services.PetTypeService;
 import org.springframework.stereotype.Service;
 
 import java.util.Objects;

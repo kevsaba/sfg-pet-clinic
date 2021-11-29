@@ -1,12 +1,12 @@
 package kev.springframework.sfgpetclinic.bootstrap;
 
 import kev.springframework.sfgpetclinic.model.*;
-import kev.springframework.sfgpetclinic.service.OwnerService;
-import kev.springframework.sfgpetclinic.service.PetTypeService;
-import kev.springframework.sfgpetclinic.service.SpecialityService;
-import kev.springframework.sfgpetclinic.service.VetService;
-import kev.springframework.sfgpetclinic.service.map.OwnerServiceMap;
-import kev.springframework.sfgpetclinic.service.map.VetServiceMap;
+import kev.springframework.sfgpetclinic.services.OwnerService;
+import kev.springframework.sfgpetclinic.services.PetTypeService;
+import kev.springframework.sfgpetclinic.services.SpecialityService;
+import kev.springframework.sfgpetclinic.services.VetService;
+import kev.springframework.sfgpetclinic.services.map.OwnerServiceMap;
+import kev.springframework.sfgpetclinic.services.map.VetServiceMap;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 

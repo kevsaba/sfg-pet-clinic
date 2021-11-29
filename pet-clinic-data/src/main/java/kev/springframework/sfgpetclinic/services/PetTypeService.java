@@ -1,4 +1,4 @@
-package kev.springframework.sfgpetclinic.service;
+package kev.springframework.sfgpetclinic.services;
 
 import kev.springframework.sfgpetclinic.model.PetType;
 

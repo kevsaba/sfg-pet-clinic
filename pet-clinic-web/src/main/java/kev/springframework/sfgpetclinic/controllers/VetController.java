@@ -1,6 +1,6 @@
 package kev.springframework.sfgpetclinic.controllers;
 
-import kev.springframework.sfgpetclinic.service.VetService;
+import kev.springframework.sfgpetclinic.services.VetService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
