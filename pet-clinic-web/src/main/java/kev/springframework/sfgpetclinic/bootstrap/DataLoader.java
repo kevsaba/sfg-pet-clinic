@@ -1,16 +1,12 @@
 package kev.springframework.sfgpetclinic.bootstrap;
 
 import kev.springframework.sfgpetclinic.model.*;
-import kev.springframework.sfgpetclinic.services.OwnerService;
-import kev.springframework.sfgpetclinic.services.PetTypeService;
-import kev.springframework.sfgpetclinic.services.SpecialityService;
-import kev.springframework.sfgpetclinic.services.VetService;
-import kev.springframework.sfgpetclinic.services.map.OwnerServiceMap;
-import kev.springframework.sfgpetclinic.services.map.VetServiceMap;
+import kev.springframework.sfgpetclinic.services.*;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
+import java.util.HashSet;
 
 
 @Component//CommandLineRunner Spring boot to initialize data when all context is ready is called
@@ -20,12 +16,14 @@ public class DataLoader implements CommandLineRunner {
     private final VetService vetService;
     private final PetTypeService petTypeService;
     private final SpecialityService specialityService;
+    private final VisitService visitService;
 
-    public DataLoader(OwnerServiceMap ownerService, VetServiceMap vetService, PetTypeService petService, SpecialityService specialityService) {
+    public DataLoader(OwnerService ownerService, VetService vetService, PetTypeService petService, SpecialityService specialityService, VisitService visitService) {
         this.ownerService = ownerService;
         this.vetService = vetService;
         this.petTypeService = petService;
         this.specialityService = specialityService;
+        this.visitService = visitService;
     }
 
     @Override
@@ -46,12 +44,14 @@ public class DataLoader implements CommandLineRunner {
         dog.setName("Cat");
         var catPetType = petTypeService.save(cat);
 
-        Owner owner1 = new Owner();
-        owner1.setFirstName("kev");
-        owner1.setLastName("saba");
-        owner1.setAddress("address1");
-        owner1.setCity("Buenos Aires");
-        owner1.setTelephone("12341234");
+
+        Owner owner1  = Owner.builder().firstName("kev").lastName("saba").address("address1").city("buenos aires").telephone("12345678").pets(new HashSet<>()).build();
+//        Owner owner1 = new Owner();
+//        owner1.setFirstName("kev");
+//        owner1.setLastName("saba");
+//        owner1.setAddress("address1");
+//        owner1.setCity("Buenos Aires");
+//        owner1.setTelephone("12341234");
 
         var mydog = new Pet();
         mydog.setPetType(dogPetType);
@@ -61,6 +61,13 @@ public class DataLoader implements CommandLineRunner {
         owner1.getPets().add(mydog);
 
         ownerService.save(owner1);
+
+        var catVisit = new Visit();
+        catVisit.setPet(mydog);
+        catVisit.setDate(LocalDate.now());
+        catVisit.setDescription("ooops it was the dogo actually visited :D");
+
+        visitService.save(catVisit);
 
         Owner owner2 = new Owner();
         owner2.setFirstName("julie");
