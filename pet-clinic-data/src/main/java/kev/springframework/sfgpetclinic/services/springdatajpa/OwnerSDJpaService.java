@@ -53,4 +53,9 @@ public class OwnerSDJpaService implements OwnerService {
     public Owner findByLastName(String lastName) {
         return ownerRepository.findByLastName(lastName).orElse(null);
     }
+
+    @Override
+    public Set<Owner> findAllByLastName(String anyString) {
+        return ownerRepository.findAllByLastNameLike(anyString);
+    }
 }

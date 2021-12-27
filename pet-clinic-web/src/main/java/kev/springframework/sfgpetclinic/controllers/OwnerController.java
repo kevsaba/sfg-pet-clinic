@@ -1,13 +1,12 @@
 package kev.springframework.sfgpetclinic.controllers;
 
+import kev.springframework.sfgpetclinic.model.Owner;
 import kev.springframework.sfgpetclinic.services.OwnerService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.InitBinder;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 @RequestMapping("/owners")
@@ -28,12 +27,6 @@ public class OwnerController {
         dataBinder.setDisallowedFields("id");
     }
 
-    @GetMapping({"", "/index", "/index.html"})
-    public String listOwners(Model model) {
-        model.addAttribute("owners", ownerService.findAll());
-        return "owner/index";
-    }
-
     @GetMapping("/{id}")
     public ModelAndView findOwners(@PathVariable Long id) {
         ModelAndView mav = new ModelAndView("owner/ownerDetails");
@@ -41,4 +34,63 @@ public class OwnerController {
         return mav;
     }
 
+    @GetMapping("/form")
+    public String findOwnersForm(Model model) {
+        model.addAttribute("owner", Owner.builder().build());
+        return "owner/findOwners";
+    }
+
+    @GetMapping("/find")
+    public String processFindForm(Owner owner, BindingResult bindingResult, Model model) {
+        if (owner.getLastName() == null) {
+            owner.setLastName("");
+        }
+        var owners = ownerService.findAllByLastName("%" + owner.getLastName() + "%"); //to do the like
+        if (owners.isEmpty()) {
+            //no owners found
+            bindingResult.rejectValue("lastName", "notFound", "notFound");
+            return "owner/findOwners";
+        } else if (owners.size() == 1) {
+            //only 1 found so return details directly
+            var foundOwner = owners.stream().findFirst().get();
+            return "redirect:/owners/" + foundOwner.getId();
+        } else {
+            //multiple owners found so return table with list
+            model.addAttribute("listOwners", owners);
+            model.addAttribute("totalPages", 1);
+            model.addAttribute("currentPage", 1);
+            return "owner/ownersList";
+        }
+    }
+
+    @GetMapping("/new")
+    public String initCreationForm(Model model) {
+        model.addAttribute("owner", Owner.builder().build());
+        return "owner/createOrUpdateOwnerForm";
+    }
+
+    @PostMapping("/new")
+    public String postCreationForm(Owner owner, BindingResult result) {
+        if (result.hasErrors()) {
+            return "owner/createOrUpdateOwnerForm";
+        }
+        var savedOwner = ownerService.save(owner);
+        return "redirect:/owners/" + savedOwner.getId();
+    }
+
+    @GetMapping("/{id}/edit")
+    public String initUpdateForm(@PathVariable Long id, Model model) {
+        model.addAttribute("owner", ownerService.findById(id));
+        return "owner/createOrUpdateOwnerForm";
+    }
+
+    @PostMapping("/{id}/edit")
+    public String postUpdateForm(@PathVariable Long id, Owner owner, BindingResult result) {
+        if (result.hasErrors()) {
+            return "owner/createOrUpdateOwnerForm";
+        }
+        owner.setId(id);
+        var savedOwner = ownerService.save(owner);
+        return "redirect:/owners/" + savedOwner.getId();
+    }
 }
