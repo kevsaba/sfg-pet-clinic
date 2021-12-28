@@ -41,7 +41,7 @@ public class DataLoader implements CommandLineRunner {
         var dogPetType = petTypeService.save(dog);
 
         var cat = new PetType();
-        dog.setName("Cat");
+        cat.setName("Cat");
         var catPetType = petTypeService.save(cat);
 
 

@@ -7,6 +7,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.HashSet;
+import java.util.Locale;
 import java.util.Set;
 
 @Setter
@@ -35,4 +36,21 @@ public class Owner extends Person {
         this.telephone = telephone;
         this.pets = pets;
     }
+
+    public Pet getPet(String name) {
+        return getPet(name, false);
+    }
+
+    public Pet getPet(String name, boolean ignoreNew) {
+        name = name.toLowerCase(Locale.ROOT);
+        for (var pet : pets) {
+            if (!ignoreNew || !pet.isNew()) {
+                if (pet.getName().equals(name)) {
+                    return pet;
+                }
+            }
+        }
+        return null;
+    }
+
 }

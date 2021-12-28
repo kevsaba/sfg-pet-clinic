@@ -1,6 +1,7 @@
 package kev.springframework.sfgpetclinic.model;
 
 import lombok.*;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -25,6 +26,7 @@ public class Pet extends BaseEntity {
     @ManyToOne
     @JoinColumn(name = "type_id")
     private PetType petType;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Column(name = "birdate")
     private LocalDate birthDate;
 
