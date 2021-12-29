@@ -10,6 +10,8 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
 @Controller
 public class VisitController {
 
@@ -43,7 +45,7 @@ public class VisitController {
     }
 
     @PostMapping("/owners/{ownerId}/pets/{petId}/visits/new")
-    public String postNewVisitForm(Visit visit, BindingResult result){
+    public String postNewVisitForm(@Valid Visit visit, BindingResult result){
         if (result.hasErrors()){
             return "pets/createOrUpdateVisitForm";
         }
